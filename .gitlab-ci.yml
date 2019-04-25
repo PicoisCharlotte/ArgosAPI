@@ -2,7 +2,7 @@ image: node:latest
 
 stages:
   - deploy
-
+  
 production:
   stage: deploy
   image : ruby:latest
