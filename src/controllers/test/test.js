@@ -6,8 +6,7 @@ module.exports = () => {
                 console.error('command not found');
                 return;
             }
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
+            res.json('reussi');
         });
     };
 }
