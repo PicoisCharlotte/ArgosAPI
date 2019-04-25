@@ -1,0 +1,19 @@
+image: node:latest
+
+before_script:
+  - npm i -s -g vue
+  - npm i
+
+stages:
+  - deploy
+
+production:
+  stage: deploy
+  image : ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -yqq ruby ruby-dev nodejs --silent
+    - gem install dpl
+    - dpl --provider=heroku --app=ci-cd-heroku-nodejs --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+  - master
