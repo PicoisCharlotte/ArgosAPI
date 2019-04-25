@@ -1,7 +1,6 @@
 image: node:latest
 
 before_script:
-  - npm i -s -g vue
   - npm i
 
 stages:
