@@ -1,5 +1,6 @@
 module.exports = server => {
     server.controllers = {
-        test: require('./test')(server)
+        user: require('./user')(server),
+        robot: require('./robot')(server),
     }
 }
