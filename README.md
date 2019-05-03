@@ -1,5 +1,9 @@
 # Argos API
 
+## Run in Postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9a839ffb639e339e25a3)
+
 ## Endpoints
 
 ## API Argos, database : firebase
