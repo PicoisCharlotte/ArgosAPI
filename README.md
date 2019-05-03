@@ -21,8 +21,15 @@ list of action_name robot:
 
 insert new data
 
-action_name user:
+table_name user:
 - insertUser, parameters(body), body is required
 
-action_name robot:
+table_name robot:
 - insertRobot, parameters(body), body is required
+
+### Insert : https://argosapi.herokuapp.com/table_name/delete
+
+Delete data
+
+table_name robot:
+- deleteRobot, parameters(body), body is required, just id_robot in body
