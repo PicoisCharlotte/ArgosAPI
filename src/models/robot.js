@@ -22,6 +22,12 @@ class Robot {
             rootRef.set(data).then(resolve, reject);
         })
     }
+    static async deleteRobot(key) {
+        return new Promise(async (resolve, reject) => {
+            let rootRef = database.ref('robot/' + key);
+            rootRef.remove().then(resolve, reject);
+        })
+    }
     static async getKeySnapRobot() {
         return new Promise(async (resolve, reject) => {
             let rootRef = database.ref('robot');

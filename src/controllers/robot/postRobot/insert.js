@@ -21,7 +21,7 @@ module.exports = () => {
             }).then(() => {
                 res.status(200).json('new Robot insert');
             }).catch(err => {
-                res.status(error.code || 500).json(error);
+                res.status(err.code || 500).json(err);
             });
         }
         insertRobot(req.body);              
