@@ -31,7 +31,7 @@ table_name user:
 table_name robot:
 - insertRobot, parameters(body), body is required
 
-### Insert : https://argosapi.herokuapp.com/table_name/delete
+### Delete : https://argosapi.herokuapp.com/table_name/delete
 
 Delete data
 
