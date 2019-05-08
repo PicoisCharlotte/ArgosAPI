@@ -12,11 +12,11 @@ module.exports = () => {
                 })
             });
             if (!keyRobot) {
-                res.status(404).json({message: "key robot don't exist"});
+                res.status(404).json({message: "key robot don't exist", deleted: false});
                 return;
             }
             await robot.deleteRobot(keyRobot).then(() => {
-                res.status(200).json({message: "Robot deleted"});
+                res.status(200).json({message: "Robot deleted", deleted: true});
             }).catch(err => {
                 res.status(err.code || 500).json(err);
             })

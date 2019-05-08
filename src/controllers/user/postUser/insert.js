@@ -10,7 +10,7 @@ module.exports = () => {
             });
             let largest = Math.max.apply(Math, idUser);
             if(!body) {
-                res.json({error: 'body data required'});
+                res.json({message: "body data required", inserted: false});
                 return;
             }
             await user.insertUser({
@@ -20,7 +20,7 @@ module.exports = () => {
                 login: body.email,
                 password: body.password
             }).then(() => {
-                res.status(200).json('new User insert');
+                res.status(200).json({message: "new User insert", inserted: true});
             }).catch(err => {
                 res.status(err.code || 500).json(err);
             });
