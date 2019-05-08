@@ -3,13 +3,16 @@ const robot = require(__basedir + '/src/models/robot');
 module.exports = () => {
     return (req, res) => {
         const insertRobot = async (body) => {
-            let idRobot = [];
-            await robot.allRobot().then(r => {
-                r.forEach(data => idRobot.push(data.id_robot));
+            let idRobot = 0;
+            let allRobot = await robot.allRobot();
+            allRobot.forEach(data => {
+                if (data.id_robot > idRobot) idRobot = data.id_robot
             });
-            let largest = Math.max.apply(Math, idRobot);
-            if(!body) {
-                res.json({message: "body data required", inserted: false});
+            let checkRobotExist = allRobot.find(data => {
+                return data.name.toLowerCase() == body.name.toLowerCase()
+            });
+            if(checkRobotExist) {
+                res.json({message: "Robot already exist", inserted: false});
                 return;
             }
             await robot.insertRobot({

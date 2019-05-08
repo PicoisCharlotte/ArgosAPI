@@ -4,19 +4,23 @@ const user = require(__basedir + '/src/models/user');
 module.exports = () => {
     return (req, res) => {
         const insertUser = async (body) => {
-            let idUser = [];
-            await user.allUsers().then(u => {
-                u.forEach(data => idUser.push(data.id_user));
+            let idUser = 0;
+            let allUser = await user.allUsers();
+            allUser.forEach(data => {
+                if (data.id_user > idUser) idUser = data.id_user
             });
-            let largest = Math.max.apply(Math, idUser);
-            if(!body) {
-                res.json({message: "body data required", inserted: false});
+            let checkUserExist = allUser.find(data => {
+                return data.login.toLowerCase() == body.login.toLowerCase() || 
+                data.password.toLowerCase() == body.password.toLowerCase()
+            });
+            if(checkUserExist) {
+                res.json({message: "Login or password already exist", inserted: false});
                 return;
             }
             await user.insertUser({
                 cellphone: body.cellphone,
                 email: body.email,
-                id_user: largest + 1,
+                id_user: idUser + 1,
                 login: body.email,
                 password: body.password
             }).then(() => {
