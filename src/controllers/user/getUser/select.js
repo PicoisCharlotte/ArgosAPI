@@ -14,25 +14,15 @@ module.exports = () => {
         const selectJoinRToU = async () => {
             let allUser = await user.allUsers();
             let allRobot = await robot.allRobot();
-            let newArray = [];
             
             allRobot.forEach(r => {
-                allUser.forEach(u => {
-                    if(r.id_user_robot == u.id_user) {
-                        newArray.push({
-                            id_user: u.id_user,
-                            id_robot: r.id_robot,
-                            login: u.login,
-                            password: u.password,
-                            email: u.email,
-                            model: r.model,
-                            name: r.name,
-                            nbCapteur: r.nb_capteur,
-                        });
-                    }
-                })
+                let index = allUser.findIndex(u => r.id_user_robot == u.id_user);
+                r.id_user = index == - 1 ? null : allUser[index].id_user;
+                r.login = index == - 1 ? null : allUser[index].login;
+                r.password = index == - 1 ? null : allUser[index].password;
+                r.email = index == - 1 ? null : allUser[index].email;
             });
-            res.status(200).json(newArray);
+            res.status(200).json(allRobot);
         };
         const selectAUser = async (credential) => {
             await user.allUsers().then(data => {
