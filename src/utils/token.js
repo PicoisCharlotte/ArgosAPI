@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 class Token {
     static generateToken(data, secret) {
         return jwt.sign(data, secret, {
-            expiresIn: 60
+            expiresIn: 86400
         });
     }
     static checkToken(token, secret) {

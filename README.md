@@ -10,6 +10,8 @@ To access the data, you must generate a token during the user connection and aft
 
 - "access-token" : your_token
 
+important : the lifetime of the token is 24 hours.
+
 ## Endpoints
 
 ## API Argos, database : firebase
