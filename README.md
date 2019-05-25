@@ -4,6 +4,12 @@
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9a839ffb639e339e25a3)
 
+## Access Ressources :
+
+To access the data, you must generate a token during the user connection and after sending it in the header with the parameter name "access-token", example :
+
+- "access-token" : your_token
+
 ## Endpoints
 
 ## API Argos, database : firebase

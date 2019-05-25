@@ -1,8 +1,9 @@
 /* global __basedir */
 const user = require(__basedir + '/src/models/user');
 const robot = require(__basedir + '/src/models/robot');
+const jwtToken = require(__basedir + '/src/utils/token');
 
-module.exports = () => {
+module.exports = server => {
     return (req, res) => {
         const selectAllUser = async () => {
             await user.allUsers().then(data => {
@@ -25,16 +26,21 @@ module.exports = () => {
             res.status(200).json(allRobot);
         };
         const selectAUser = async (credential) => {
-            await user.allUsers().then(data => {
-                if(!credential[0] || !credential[1]) {
-                    res.json({error: 'Login or password required'});
-                    return;
-                }
-                let aUser = data.filter(u => u.login === credential[0] && u.password === credential[1]);
-                res.status(200).json(aUser);
-            }).catch(err => {
-                res.status(err.code || 500).json(err);
-            });
+            let token = null;
+            let users = await user.allUsers();
+            let aUser = users.filter(u => u.login === credential[0] && u.password === credential[1]);
+            if (aUser.length > 0) {
+                let verify = jwtToken.checkToken(req.header('access-token'), server.get('Secret'));
+                if (!verify) token = jwtToken.generateToken({id_user: aUser[0].id_user}, server.get('Secret'));
+                res.status(200).json({
+                    data: aUser,
+                    message: verify ? '' : 'new token initialized',
+                    token: token ? token : req.header('access-token')
+                });
+                return;
+            }
+            res.status(401).json({ message: 'login or password incorrect'})
+
         }
 
         switch (req.query.action) {
