@@ -6,8 +6,6 @@ module.exports = server => {
     return (req, res) => {
         const insertUser = async body => {
             let idUser = 0;
-            let verify = jwtToken.checkToken(req.header('access-token'), server.get('Secret'));
-            if (verify) {
                 let allUser = await user.allUsers();
                 allUser.forEach(data => {
                     if (data.id_user > idUser) idUser = data.id_user
@@ -31,9 +29,6 @@ module.exports = server => {
                 }).catch(err => {
                     res.status(err.code || 500).json(err);
                 });
-                return;
-            }
-            res.status(401).json({ message: " token is expired ", inserted: verify });
             
         }
         insertUser(req.body);
