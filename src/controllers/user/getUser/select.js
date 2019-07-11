@@ -38,9 +38,9 @@ module.exports = server => {
                     token: token ? token : req.header('access-token')
                 });
                 return;
+            } else {
+                res.status(401).json({ message: 'login or password incorrect'})
             }
-            res.status(401).json({ message: 'login or password incorrect'})
-
         }
 
         switch (req.query.action) {

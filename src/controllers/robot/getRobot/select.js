@@ -22,8 +22,9 @@ module.exports = server => {
                 }).catch(err => {
                     res.status(err.code || 500).json(err);
                 });
+            } else {
+                res.status(401).json({ message: " token is expired ", access: verify });
             }
-            res.status(401).json({ message: " token is expired ", access: verify });
         }
         switch (req.query.action) {
             case 'selectAllRobot':
