@@ -16,18 +16,15 @@ important : the lifetime of the token is 24 hours.
 
 ## API Argos, database : firebase
 
-### Select : https://argosapi.herokuapp.com/table_name/select?action=action_name
+### Select : https://argosapi.herokuapp.com/table_name/select/:id
 
 Returns a list of the selected table
 
 list of action_name user : 
-- selectAllUser
-- selectJoinRToU
-- selectAUser, add after action_name, &credential=[{{login}}, {{password}}]
+- selectAUser: &credential=[{{login}}, {{password}}]
 
 list of action_name robot:
-- selectAllRobot
-- selectWhereRobot, add after action_name; &idUserRobot={{idUserRobot}}
+- selectWhereRobot: &idUserRobot={{idUserRobot}}
 
 ### Insert : https://argosapi.herokuapp.com/table_name/insert
 

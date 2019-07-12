@@ -24,6 +24,6 @@ module.exports = server => {
                 res.status(401).json({ message: "token is expired or bad token", tokenSend: verifyTokenSend });
             }
         }
-        selectWhereRobot(req.query.idUserRobot);     
+        selectWhereRobot(req.params.idUserRobot);     
     }
 }

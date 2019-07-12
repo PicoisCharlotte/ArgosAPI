@@ -6,14 +6,29 @@ module.exports = server => {
     return (req, res) => {
         const getToken = async (idUser) => {
             let tokenUser = await token.tokenUser(idUser);
-            let checkTokenExist = (tokenUser) ? tokenUser.value : '';
-            let tokenIsExpired = jwtToken.checkTokenIsExpired(checkTokenExist, server.get('Secret'));
-            if(!tokenIsExpired) {
-                res.status(200).json({ token: checkTokenExist });
+            let newToken = null;
+            
+            if (tokenUser) {
+                let tokenIsExpired = jwtToken.checkTokenIsExpired(req.header('access-token'), server.get('Secret'));
+                
+                //if token is expired, generate a new token
+                if(tokenIsExpired) {
+                    newToken = jwtToken.generateToken({id_user: tokenUser.idUser}, server.get('Secret'));
+                }
+
+                //update or not the new token
+                await token.changeToken({ 
+                    idUser: tokenUser.idUser, 
+                    token: !newToken ? req.header('access-token') : newToken
+                });
+                
+                //display new token or old token
+                res.status(200).json({ token: !newToken ? req.header('access-token') : newToken })
             } else {
-                res.status(401).json({ message: "token is expired or user id inexistant", token: null });
+                res.status(401).json({ message: ' user inexistant ', token: false })
             }
+            
         };
-        getToken(req.query.idUser);
+        getToken(req.params.idUser);
     }
 }
