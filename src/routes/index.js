@@ -3,4 +3,5 @@ module.exports = server => {
 
     require('./user')(server);
     require('./robot')(server);
+    require('./token')(server);
 }

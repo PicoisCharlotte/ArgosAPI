@@ -6,10 +6,10 @@ class Token {
             expiresIn: 86400
         });
     }
-    static checkToken(token, secret) {
+    static checkTokenIsExpired(token, secret) {
         return jwt.verify(token, secret, (err, decoded) => {
-                if (err) return false;
-                return true;
+            if (err) return true;
+            return false;
         });
     }
 }

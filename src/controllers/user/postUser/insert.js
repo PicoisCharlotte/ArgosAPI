@@ -10,26 +10,27 @@ module.exports = server => {
                 allUser.forEach(data => {
                     if (data.id_user > idUser) idUser = data.id_user
                 });
+
                 let checkUserExist = allUser.find(data => {
                     return data.login.toLowerCase() == body.login.toLowerCase() || 
                     data.password.toLowerCase() == body.password.toLowerCase()
                 });
+
                 if(checkUserExist) {
                     res.json({message: "Login or password already exist", inserted: false});
                     return;
                 }
-            await user.insertUser({
-                    cellphone: body.cellphone,
-                    email: body.email,
-                    id_user: idUser + 1,
-                    login: body.email,
-                    password: body.password,
-                }).then(() => {
-                    res.status(200).json({message: "new User insert", inserted: true});
-                }).catch(err => {
-                    res.status(err.code || 500).json(err);
-                });
-            
+                await user.insertUser({
+                        cellphone: body.cellphone,
+                        email: body.email,
+                        id_user: idUser + 1,
+                        login: body.email,
+                        password: body.password,
+                    }).then(() => {
+                        res.status(200).json({message: "new User insert", inserted: true});
+                    }).catch(err => {
+                        res.status(err.code || 500).json(err);
+                    });
         }
         insertUser(req.body);
     }
