@@ -30,6 +30,7 @@ module.exports = server => {
                     model: body.model,
                     name: body.name,
                     nb_capteur: body.nb_capteur,
+                    url_camera: ""
                 }).then(() => {
                     res.status(200).json({message: "new Robot insert", inserted: true});
                 }).catch(err => {
