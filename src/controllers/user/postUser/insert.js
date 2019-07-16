@@ -24,7 +24,7 @@ module.exports = server => {
                         cellphone: body.cellphone,
                         email: body.email,
                         id_user: idUser + 1,
-                        login: body.email,
+                        login: body.login,
                         password: body.password,
                     }).then(() => {
                         res.status(200).json({message: "new User insert", inserted: true});
