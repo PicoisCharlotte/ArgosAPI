@@ -8,6 +8,8 @@ global.__basedir = __dirname;
 
 server.use(cors());
 server.set('Secret', key.Secret);
+server.set('tokenF', key.Authorization);
+server.set('adafruitKey', key.adafruit_key);
 
 require('./src/utils/firebase/dbConnect')(server);
 require('./src/controllers')(server);

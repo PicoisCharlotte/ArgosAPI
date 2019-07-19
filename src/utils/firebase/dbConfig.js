@@ -3,4 +3,5 @@ module.exports = {
     authDomain: 'argos-552fb.firebaseapp.com',
     databaseURL: 'https://argos-552fb.firebaseio.com/',
     storageBucket: '',
+    messagingSenderId: '555225993327',
 };
