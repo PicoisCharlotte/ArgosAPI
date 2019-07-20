@@ -1,7 +1,6 @@
 /* global __basedir */
 const sensor = require(__basedir + '/src/models/sensor');
 const notification = require(__basedir + '/src/models/notification');
-let notficationCount = 0;
 
 module.exports = server => {
     return (req, res) => {
@@ -11,25 +10,12 @@ module.exports = server => {
             let headers = { 'Authorization': tokenF };
             //check last value
             if(body && parseInt(motion.data.last_value, 10) == 1) {
-                await notification.sendNotificationFirebase(headers, body).then(() => {
-                    res.status(200).json({message: "notfication send"});
-                }).catch(err => {
-                    res.status(err.code || 500).json(err);
-                });
                 //check if notfication already send
-                /*if(notficationCount < 1) {
-                    //send notfication
-                    await notification.sendNotificationFirebase(headers, body).then(() => {
-                        res.status(200).json({message: "notfication send"});
-                    }).catch(err => {
-                        res.status(err.code || 500).json(err);
-                    });
-                } else {
-                    res.status(200).json({message: "notification already send"});
-                }*/
-                //notficationCount++;
+                if (body) {
+                    server.set("bodyNotification", body);
+                    res.status(200).json({message: "notfication send"});
+                }
             } else {
-                //notficationCount = 0;
                 res.status(404).json({message: "body inexistante or mouvement sensor not detect mouvement"});
             }
         }

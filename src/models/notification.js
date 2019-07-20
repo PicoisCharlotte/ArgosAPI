@@ -13,7 +13,6 @@ class Notification {
                 if(error) {
                     reject(error);
                 }
-                console.log(body);
                 resolve(body);
             })
         })
