@@ -17,12 +17,12 @@ class CronTask {
                     }).catch(err => {
                         console.error(err);
                     });
-                } else {
+                } /*else {
                     console.log("notfication already send");
-                }
+                }*/
                 nbCountNotif++
             } else {
-                console.log("rien");
+                //console.log("rien");
                 nbCountNotif = 0;
             }
         })
