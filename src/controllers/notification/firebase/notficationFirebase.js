@@ -11,8 +11,13 @@ module.exports = server => {
             let headers = { 'Authorization': tokenF };
             //check last value
             if(body && parseInt(motion.data.last_value, 10) == 1) {
+                await notification.sendNotificationFirebase(headers, body).then(() => {
+                    res.status(200).json({message: "notfication send"});
+                }).catch(err => {
+                    res.status(err.code || 500).json(err);
+                });
                 //check if notfication already send
-                if(notficationCount < 1) {
+                /*if(notficationCount < 1) {
                     //send notfication
                     await notification.sendNotificationFirebase(headers, body).then(() => {
                         res.status(200).json({message: "notfication send"});
@@ -21,10 +26,10 @@ module.exports = server => {
                     });
                 } else {
                     res.status(200).json({message: "notification already send"});
-                }
-                notficationCount++;
+                }*/
+                //notficationCount++;
             } else {
-                notficationCount = 0;
+                //notficationCount = 0;
                 res.status(404).json({message: "body inexistante or mouvement sensor not detect mouvement"});
             }
         }
