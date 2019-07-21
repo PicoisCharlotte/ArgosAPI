@@ -13,7 +13,7 @@ class CronTask {
             if (server.get("bodyNotification") && parseInt(motion.data.last_value, 10) == 1) {
                 if (nbCountNotif < 1 ) {
                     await notification.sendNotificationFirebase(headers, server.get("bodyNotification") ).then(() => {
-                        console.log("notification send");
+                        console.log("notification send : " + tokenF);
                     }).catch(err => {
                         console.error(err);
                     });
