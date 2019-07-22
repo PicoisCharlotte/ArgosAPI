@@ -20,6 +20,7 @@ class CronTask {
                 } /*else {
                     console.log("notfication already send");
                 }*/
+                
                 nbCountNotif++
             } else {
                 //console.log("rien");
