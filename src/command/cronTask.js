@@ -9,10 +9,14 @@ class CronTask {
             let motion = await sensor.getValuesMotion(server.get('adafruitKey'));
             let tokenF = server.get("tokenF");
             let headers = { 'Authorization': tokenF };
+            let newBody = { "to": server.get("bodyNotification").to, "notification" :{
+                "title": "Attention",
+                "body": "Votre robot a détecté quelque chose!!"
+            }}
 
             if (server.get("bodyNotification") && parseInt(motion.data.last_value, 10) == 1) {
                 if (nbCountNotif < 1 ) {
-                    await notification.sendNotificationFirebase(headers, server.get("bodyNotification") ).then(() => {
+                    await notification.sendNotificationFirebase(headers, newBody).then(() => {
                         console.log("notification send : " + server.get("bodyNotification").to);
                     }).catch(err => {
                         console.error(err);
@@ -20,7 +24,7 @@ class CronTask {
                 } /*else {
                     console.log("notfication already send");
                 }*/
-                
+
                 nbCountNotif++
             } else {
                 //console.log("rien");
