@@ -5,7 +5,7 @@ let nbCountNotif = 0;
 
 class CronTask {
     static sendNotification(server) {
-        let job = new CronJob('*/5 * * * * *', async function() {
+        let job = new CronJob('*/20 * * * * *', async function() {
             let motion = await sensor.getValuesMotion(server.get('adafruitKey'));
             let tokenF = server.get("tokenF");
             let headers = { 'Authorization': tokenF };
@@ -15,20 +15,20 @@ class CronTask {
                     "title": "Attention",
                     "body": "Votre robot a détecté quelque chose!!"
                 }}
-                if (nbCountNotif < 1 ) {
-                    await notification.sendNotificationFirebase(headers, newBody).then(() => {
-                        console.log("notification send : " + server.get("bodyNotification").to);
-                    }).catch(err => {
-                        console.error(err);
-                    });
-                } /*else {
+                //if (nbCountNotif < 1 ) {
+                await notification.sendNotificationFirebase(headers, newBody).then(() => {
+                    console.log("notification send : " + server.get("bodyNotification").to);
+                }).catch(err => {
+                    console.error(err);
+                });
+                /*} else {
                     console.log("notfication already send");
-                }*/
+                }
 
-                nbCountNotif++
+                nbCountNotif++*/
             } else {
-                //console.log("rien");
-                nbCountNotif = 0;
+                console.log("rien");
+                //nbCountNotif = 0;
             }
         })
         job.start();
