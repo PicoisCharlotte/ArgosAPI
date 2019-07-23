@@ -27,7 +27,7 @@ class CronTask {
 
                 nbCountNotif++*/
             } else {
-                console.log("rien");
+                //console.log("rien");
                 //nbCountNotif = 0;
             }
         })
