@@ -19,7 +19,7 @@
     "cron": "^1.7.1",
     "express": "^4.16.4",
     "firebase": "^5.10.1",
-    "json5": "^2.1.0",
+    "json5": "^2.2.2",
     "jsonwebtoken": "^8.5.1",
     "request": "^2.88.0"
   },
